@@ -31,7 +31,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* GSAP handles smooth scrolling; CSS smooth conflicts and ignores reduced-motion */
 }
 
 body {

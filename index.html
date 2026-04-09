@@ -139,7 +139,7 @@
       <div class="form-wrap">
         <h2 class="section__title">Get a Free Website Concept</h2>
         <p class="form-wrap__sub">Tell me about your business and I'll put together a free homepage concept — no commitment.</p>
-        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
           <div class="form__row">
             <div class="form__group">
               <label for="name" class="form__label">Your Name</label>
@@ -156,7 +156,7 @@
           </div>
           <div class="form__group">
             <label for="message" class="form__label">Tell Me About Your Business</label>
-            <textarea id="message" name="message" class="form__input form__textarea" placeholder="What kind of business do you run? What's your biggest challenge online right now?" rows="5"></textarea>
+            <textarea id="message" name="message" class="form__input form__textarea" placeholder="What kind of business do you run? What's your biggest challenge online right now?" rows="5" required></textarea>
           </div>
           <button type="submit" class="btn btn--accent btn--lg btn--full" id="submit-btn">Get a Free Website Concept</button>
           <div id="form-status" class="form__status" aria-live="polite"></div>

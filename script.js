@@ -2,21 +2,31 @@
    CLIENT VECTORS — script.js
    ============================================ */
 
+const CONFIG = {
+  NAV_SCROLL_THRESHOLD: 20,
+  NAV_OFFSET_PADDING:   16,
+  BTN_RESET_DELAY:      3000
+};
+
 // --- Nav: add backdrop on scroll ---
 const nav = document.getElementById('nav');
 
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > CONFIG.NAV_SCROLL_THRESHOLD);
+  }, { passive: true });
+}
 
 
 // --- Smooth scroll for all anchor links ---
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
-    const target = document.querySelector(link.getAttribute('href'));
+    const href = link.getAttribute('href');
+    if (!href) return;
+    const target = document.querySelector(href);
     if (!target) return;
     e.preventDefault();
-    const offset = nav.offsetHeight + 16;
+    const offset = nav ? nav.offsetHeight + CONFIG.NAV_OFFSET_PADDING : CONFIG.NAV_OFFSET_PADDING;
     const top = target.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: 'smooth' });
   });
@@ -28,7 +38,9 @@ const form      = document.getElementById('contact-form');
 const statusEl  = document.getElementById('form-status');
 const submitBtn = document.getElementById('submit-btn');
 
-if (form) {
+if (form && statusEl && submitBtn) {
+  let formAbortController = null;
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
@@ -47,32 +59,44 @@ if (form) {
       return;
     }
 
-    submitBtn.disabled     = true;
-    submitBtn.textContent  = 'Sending…';
+    // Cancel any in-flight request before starting a new one
+    if (formAbortController) {
+      formAbortController.abort();
+    }
+    formAbortController = new AbortController();
+
+    submitBtn.disabled    = true;
+    submitBtn.textContent = 'Sending…';
     setStatus('', '');
 
     try {
       const res = await fetch(form.action, {
         method:  'POST',
         body:    data,
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Accept': 'application/json' },
+        signal:  formAbortController.signal
       });
 
       if (res.ok) {
         form.reset();
         setStatus("Thanks! I'll be in touch with your free website concept shortly.", 'success');
         submitBtn.textContent = 'Sent ✓';
+        setTimeout(() => resetBtn(), CONFIG.BTN_RESET_DELAY);
       } else {
         const json = await res.json().catch(() => ({}));
         const msg  = json?.errors?.[0]?.message || 'Something went wrong. Please try again.';
         setStatus(msg, 'error');
         resetBtn();
       }
-    } catch {
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+      console.error('Form submission failed:', error);
       setStatus('Something went wrong. Please try again or email us directly at louis@clientvectors.com.', 'error');
       resetBtn();
     }
   });
+} else {
+  console.warn('Contact form elements missing from DOM');
 }
 
 function setStatus(msg, type) {
@@ -86,5 +110,10 @@ function resetBtn() {
 }
 
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const emailInput = document.getElementById('email');
+  if (emailInput?.validity !== undefined) {
+    return emailInput.validity.valid;
+  }
+  // Fallback for environments without HTML5 constraint validation
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
 }

@@ -25,6 +25,15 @@ if (prefersReducedMotion) {
 
 } else {
 
+  // Fade + slide an element (or group) into view on scroll
+  function scrollReveal(selector, vars, trigger, start) {
+    gsap.from(selector, {
+      autoAlpha: 0, y: 20, duration: 0.7, ease: 'power2.out',
+      ...vars,
+      scrollTrigger: { trigger: trigger || selector, start: start || 'top 85%', once: true }
+    });
+  }
+
   // --- 1. Hero Entrance (page load) ---
   gsap.timeline()
     .from('.hero__headline', { autoAlpha: 0, y: 28, duration: 1.0, ease: 'cv.premium' }, 0.1)
@@ -37,18 +46,10 @@ if (prefersReducedMotion) {
   });
 
   // --- 3. Section Titles ---
-  gsap.utils.toArray('.section__title').forEach(title => {
-    gsap.from(title, {
-      autoAlpha: 0, y: 20, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: title, start: 'top 85%', once: true }
-    });
-  });
+  gsap.utils.toArray('.section__title').forEach(title => scrollReveal(title));
 
   // --- 4. "What We Do" Cards ---
-  gsap.from('.card', {
-    autoAlpha: 0, y: 40, duration: 0.7, ease: 'cv.premium', stagger: 0.15,
-    scrollTrigger: { trigger: '.cards', start: 'top 80%', once: true }
-  });
+  scrollReveal('.card', { y: 40, ease: 'cv.premium', stagger: 0.15 }, '.cards', 'top 80%');
 
   // --- 5. "How It Works" Steps (sequential) ---
   const steps  = gsap.utils.toArray('.step');
@@ -81,9 +82,6 @@ if (prefersReducedMotion) {
     .from('#submit-btn',  { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.1');
 
   // --- 8. Footer ---
-  gsap.from('.footer__inner > *', {
-    autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out', stagger: 0.12,
-    scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true }
-  });
+  scrollReveal('.footer__inner > *', { y: 12, duration: 0.5, stagger: 0.12 }, '.footer', 'top 95%');
 
 }
