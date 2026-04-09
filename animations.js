@@ -3,55 +3,173 @@
    V3 Motion Pass — GSAP + ScrollTrigger
    ============================================ */
 
-// --- Setup ---
 gsap.registerPlugin(ScrollTrigger, CustomEase);
-
 CustomEase.create('cv.premium', 'M0,0 C0.16,1 0.3,1 1,1');
 
-// --- Reduced Motion: show everything, skip all animation ---
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+
+// ============================================
+// HERO ENTRANCE — runs after prelude exits
+// ============================================
+function runHeroEntrance() {
+
+  const headlineEl = document.querySelector('.hero__headline');
+
+  // Restore container visibility before splitting —
+  // autoAlpha: 0 on the parent suppresses child animations even when children animate in
+  gsap.set(headlineEl, { autoAlpha: 1 });
+
+  // Split into word spans for clip reveal
+  headlineEl.innerHTML = headlineEl.textContent.trim().split(/\s+/).map(w =>
+    `<span class="word-outer"><span class="word-inner">${w}</span></span>`
+  ).join(' ');
+
+  const s = document.createElement('style');
+  s.textContent = `.word-outer{display:inline-block;overflow:hidden;vertical-align:bottom}.word-inner{display:inline-block}`;
+  document.head.appendChild(s);
+
+  // Set words to clipped starting position, then animate up
+  gsap.set('.word-inner', { y: '115%' });
+
+  gsap.timeline()
+    .to('.word-inner',    { y: '0%', duration: 0.75, ease: 'cv.premium', stagger: 0.055 })
+    .fromTo('.hero__sub',
+      { autoAlpha: 0, filter: 'blur(10px)', y: 16 },
+      { autoAlpha: 1, filter: 'blur(0px)',  y: 0, duration: 1.1, ease: 'power3.out' }, 0.5)
+    .fromTo('.hero .btn--lg',
+      { autoAlpha: 0, y: 20 },
+      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'cv.premium' }, 0.9)
+    .fromTo('.nav .btn--sm',
+      { autoAlpha: 0, x: 8 },
+      { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 0.8);
+}
+
+
+// ============================================
+// REDUCED MOTION — skip everything, show all
+// ============================================
 if (prefersReducedMotion) {
+  document.getElementById('prelude').style.display = 'none';
+  document.body.style.overflow = '';
   gsap.set([
-    '.hero__headline', '.hero__sub', '.hero .btn--lg',
-    '.nav .btn--sm',
-    '.section__title',
-    '.card',
-    '.step', '.step__arrow',
-    '.who__sub', '.tag',
-    '.form-wrap', '.form__group', '#submit-btn',
+    '.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm',
+    '.section__title', '.card', '.step', '.step__arrow',
+    '.who__sub', '.tag', '.form-wrap', '.form__group', '#submit-btn',
     '.footer__inner > *'
-  ], { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+  ], { autoAlpha: 1, y: 0, x: 0, scale: 1, filter: 'none' });
 
 } else {
 
-  // Fade + slide an element (or group) into view on scroll
-  function scrollReveal(selector, vars, trigger, start) {
-    gsap.from(selector, {
-      autoAlpha: 0, y: 20, duration: 0.7, ease: 'power2.out',
-      ...vars,
-      scrollTrigger: { trigger: trigger || selector, start: start || 'top 85%', once: true }
+  // Hide hero elements immediately — prevents flash before prelude exits
+  gsap.set(['.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm'], { autoAlpha: 0 });
+
+  // Lock scroll during prelude
+  document.body.style.overflow = 'hidden';
+
+
+  // ============================================
+  // STAR FIELD — built and animated in JS
+  // ============================================
+  const starsEl   = document.querySelector('.prelude__stars');
+  const cx        = window.innerWidth  / 2;
+  const cy        = window.innerHeight / 2;
+  const starCount = 70;
+
+  const stars = Array.from({ length: starCount }, () => {
+    const el     = document.createElement('span');
+    const size   = gsap.utils.random(1, 3.5, true)();
+    const x      = gsap.utils.random(0, window.innerWidth,  true)();
+    const y      = gsap.utils.random(0, window.innerHeight, true)();
+    const isBlue = Math.random() > 0.35;
+
+    gsap.set(el, {
+      position: 'absolute',
+      width: size, height: size,
+      borderRadius: '50%',
+      x, y,
+      autoAlpha: 0,
+      backgroundColor: isBlue
+        ? `rgba(77,126,255,${gsap.utils.random(0.5, 1, true)()})`
+        : `rgba(220,220,255,${gsap.utils.random(0.3, 0.7, true)()})`,
+      boxShadow: isBlue
+        ? `0 0 ${size * 3}px rgba(77,126,255,0.9)`
+        : `0 0 ${size * 2}px rgba(200,200,255,0.6)`,
     });
-  }
 
-  // --- 1. Hero Entrance (page load) ---
-  gsap.timeline()
-    .from('.hero__headline', { autoAlpha: 0, y: 28, duration: 1.0, ease: 'cv.premium' }, 0.1)
-    .from('.hero__sub',      { autoAlpha: 0, y: 28, duration: 0.9, ease: 'cv.premium' }, 0.35)
-    .from('.hero .btn--lg',  { autoAlpha: 0, y: 28, duration: 0.8, ease: 'cv.premium' }, 0.6);
-
-  // --- 2. Nav CTA Entrance (page load, delayed) ---
-  gsap.from('.nav .btn--sm', {
-    autoAlpha: 0, x: 8, duration: 0.6, ease: 'power2.out', delay: 0.9
+    starsEl.appendChild(el);
+    return { el, x, y };
   });
 
-  // --- 3. Section Titles ---
-  gsap.utils.toArray('.section__title').forEach(title => scrollReveal(title));
 
-  // --- 4. "What We Do" Cards ---
-  scrollReveal('.card', { y: 40, ease: 'cv.premium', stagger: 0.15 }, '.cards', 'top 80%');
+  // ============================================
+  // PRELUDE TIMELINE
+  // ============================================
+  const preludeTl = gsap.timeline({
+    onComplete: () => {
+      document.body.style.overflow = '';
+      document.getElementById('prelude').style.display = 'none';
+      runHeroEntrance();
+    }
+  });
 
-  // --- 5. "How It Works" Steps (sequential) ---
+  preludeTl
+    // Logo fades up into center
+    .from('.prelude__logo', {
+      autoAlpha: 0, y: 28, duration: 1.0, ease: 'cv.premium'
+    }, 0.5)
+    // Accent bar draws outward from center
+    .to('.prelude__bar', {
+      scaleX: 1, duration: 0.7, ease: 'power3.inOut'
+    }, 1.2)
+    // Stars drift in — staggered from random positions
+    .to(stars.map(s => s.el), {
+      autoAlpha: 1, duration: 0.6,
+      stagger: { each: 0.018, from: 'random' },
+      ease: 'power2.out'
+    }, 1.6)
+    // Hold — let the scene breathe
+    // Curtain panels split apart
+    .to('.prelude__panel--top',    { yPercent: -100, duration: 1.05, ease: 'power3.inOut' }, 3.3)
+    .to('.prelude__panel--bottom', { yPercent:  100, duration: 1.05, ease: 'power3.inOut' }, 3.3)
+    // Center fades as panels leave
+    .to('.prelude__center', { autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 3.4);
+
+  // Stars dissipate radially outward — added as separate tweens at t=3.3
+  stars.forEach(({ el, x, y }) => {
+    const dx    = x - cx;
+    const dy    = y - cy;
+    const dist  = Math.sqrt(dx * dx + dy * dy) || 100;
+    const reach = gsap.utils.random(120, 260, true)();
+    preludeTl.to(el, {
+      x:        x + (dx / dist) * reach,
+      y:        y + (dy / dist) * reach,
+      autoAlpha: 0,
+      duration:  gsap.utils.random(0.5, 0.95, true)(),
+      ease:      'power2.out'
+    }, 3.3);
+  });
+
+
+  // ============================================
+  // SCROLL REVEALS
+  // ============================================
+
+  // Section titles
+  gsap.utils.toArray('.section__title').forEach(title => {
+    gsap.from(title, {
+      autoAlpha: 0, y: 20, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: title, start: 'top 85%', once: true }
+    });
+  });
+
+  // "What We Do" cards
+  gsap.from('.card', {
+    autoAlpha: 0, y: 40, duration: 0.7, ease: 'cv.premium', stagger: 0.15,
+    scrollTrigger: { trigger: '.cards', start: 'top 80%', once: true }
+  });
+
+  // "How It Works" — step → arrow → step → arrow → step
   const steps  = gsap.utils.toArray('.step');
   const arrows = gsap.utils.toArray('.step__arrow');
 
@@ -64,7 +182,7 @@ if (prefersReducedMotion) {
     .from(arrows[1], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
     .from(steps[2],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15');
 
-  // --- 6. "Who This Is For" ---
+  // "Who This Is For"
   gsap.timeline({
     scrollTrigger: { trigger: '#who', start: 'top 82%', once: true }
   })
@@ -73,7 +191,7 @@ if (prefersReducedMotion) {
       autoAlpha: 0, y: 12, scale: 0.94, duration: 0.5, ease: 'cv.premium', stagger: 0.07
     }, '-=0.3');
 
-  // --- 7. Contact Form ---
+  // Contact form
   gsap.timeline({
     scrollTrigger: { trigger: '.form-wrap', start: 'top 80%', once: true }
   })
@@ -81,7 +199,10 @@ if (prefersReducedMotion) {
     .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, '-=0.4')
     .from('#submit-btn',  { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.1');
 
-  // --- 8. Footer ---
-  scrollReveal('.footer__inner > *', { y: 12, duration: 0.5, stagger: 0.12 }, '.footer', 'top 95%');
+  // Footer
+  gsap.from('.footer__inner > *', {
+    autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true }
+  });
 
 }
