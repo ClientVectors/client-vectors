@@ -136,9 +136,12 @@ a {
 
 /* Transparent PNG: renders as-is. Dark-bg PNG: uncomment mix-blend-mode below. */
 .nav__logo {
-  height: 30px;
+  height: 44px;
   width: auto;
   display: block;
+  transform: scale(2.4);
+  transform-origin: left center;
+  filter: brightness(2.4);
   /* mix-blend-mode: screen; */
 }
 
@@ -394,9 +397,12 @@ a {
 
 /* Transparent PNG: renders as-is. Dark-bg PNG: uncomment mix-blend-mode below. */
 .footer__logo {
-  height: 22px;
+  height: 28px;
   width: auto;
   display: block;
+  transform: scale(2.2);
+  transform-origin: left center;
+  filter: brightness(2.4);
   /* mix-blend-mode: screen; */
 }
 
