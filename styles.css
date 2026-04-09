@@ -502,9 +502,14 @@ a {
     min-height: 75vh;
   }
 
+  /* Scale logo down so it doesn't collide with the CTA button */
+  .nav__logo {
+    transform: scale(1.4);
+  }
+
+  /* Hide nav CTA on mobile — hero CTA directly below serves the same purpose */
   .nav .btn--sm {
-    font-size: 0.775rem;
-    padding: 0.45rem 0.85rem;
+    display: none;
   }
 
   .form__row {
