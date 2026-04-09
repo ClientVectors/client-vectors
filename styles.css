@@ -337,6 +337,10 @@ a {
   margin-bottom: 1.25rem;
 }
 
+.form__group--submit {
+  margin-bottom: 0;
+}
+
 .form__label {
   font-size: 0.875rem;
   font-weight: 500;

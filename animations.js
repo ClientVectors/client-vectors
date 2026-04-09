@@ -109,6 +109,7 @@ if (prefersReducedMotion) {
     onComplete: () => {
       document.body.style.overflow = '';
       document.getElementById('prelude').style.display = 'none';
+      ScrollTrigger.refresh();
       runHeroEntrance();
     }
   });
@@ -196,8 +197,7 @@ if (prefersReducedMotion) {
     scrollTrigger: { trigger: '.form-wrap', start: 'top 80%', once: true }
   })
     .from('.form-wrap',   { autoAlpha: 0, y: 36, duration: 0.8, ease: 'cv.premium' })
-    .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, '-=0.4')
-    .from('#submit-btn',  { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.1');
+    .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, '-=0.4');
 
   // Footer
   gsap.from('.footer__inner > *', {
