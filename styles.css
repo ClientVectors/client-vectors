@@ -9,7 +9,7 @@
   --surface:      #111120;
   --border:       #1E1E30;
   --text:         #EDEAE2;
-  --text-muted:   #7A7A99;
+  --text-muted:   #9292B5;
   --accent:       #4D7EFF;
   --accent-hover: #3A6AEE;
   --accent-rgb:   77, 126, 255;
@@ -74,11 +74,13 @@ a {
 .btn--accent {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.28);
 }
 
 .btn--accent:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.38);
 }
 
 .btn--sm {
@@ -128,16 +130,22 @@ a {
 }
 
 .nav__brand {
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+/* Transparent PNG: renders as-is. Dark-bg PNG: uncomment mix-blend-mode below. */
+.nav__logo {
+  height: 30px;
+  width: auto;
+  display: block;
+  /* mix-blend-mode: screen; */
 }
 
 /* --- Hero --- */
 .hero {
-  padding: var(--space-xl) 0;
-  min-height: 88vh;
+  padding: 5.5rem 0;
+  min-height: 78vh;
   display: flex;
   align-items: center;
 }
@@ -257,9 +265,8 @@ a {
 }
 
 .step__arrow {
-  color: var(--border);
-  padding-top: 0.35rem;
-  align-self: start;
+  color: rgba(var(--accent-rgb), 0.3);
+  align-self: center;
   user-select: none;
 }
 
@@ -301,6 +308,10 @@ a {
 /* --- Contact Form --- */
 .form-wrap {
   max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2.5rem 2rem;
 }
 
 .form-wrap__sub {
@@ -381,9 +392,12 @@ a {
   gap: 0.75rem;
 }
 
-.footer__brand {
-  font-weight: 700;
-  font-size: 0.9375rem;
+/* Transparent PNG: renders as-is. Dark-bg PNG: uncomment mix-blend-mode below. */
+.footer__logo {
+  height: 22px;
+  width: auto;
+  display: block;
+  /* mix-blend-mode: screen; */
 }
 
 .footer__email {
