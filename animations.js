@@ -116,11 +116,14 @@ if (prefersReducedMotion) {
     onComplete: () => {
       document.body.style.overflow = '';
       document.getElementById('prelude').style.display = 'none';
-      // rAF lets the browser settle the layout change (prelude removal) before
-      // ScrollTrigger recalculates all trigger positions — critical on mobile
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-        runHeroEntrance();
+      // Wait for fonts to load before calculating trigger positions —
+      // on mobile, late-loading web fonts change text height and shift sections.
+      // fonts.ready resolves immediately if already loaded (fast connections / desktop).
+      document.fonts.ready.then(() => {
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+          runHeroEntrance();
+        });
       });
     }
   });
@@ -179,10 +182,11 @@ if (prefersReducedMotion) {
   });
 
   // "What We Do" cards
-  gsap.from('.card', {
-    autoAlpha: 0, y: 10, duration: 0.65, ease: 'power2.out', stagger: 0.1,
-    scrollTrigger: { trigger: '.cards', start: isMobile ? 'top 90%' : 'top 82%', once: true }
-  });
+  gsap.fromTo('.card',
+    { autoAlpha: 0, y: 10 },
+    { autoAlpha: 1, y: 0, duration: 0.65, ease: 'power2.out', stagger: 0.1,
+      scrollTrigger: { trigger: '.cards', start: isMobile ? 'top 90%' : 'top 82%', once: true } }
+  );
 
   // "The Work" showcase
   gsap.timeline({
@@ -213,10 +217,11 @@ if (prefersReducedMotion) {
 
   if (isMobile) {
     // On mobile arrows are display:none — skip them and stagger steps cleanly
-    gsap.from(steps, {
-      autoAlpha: 0, y: 24, duration: 0.6, ease: 'cv.premium', stagger: 0.18,
-      scrollTrigger: { trigger: '.steps', start: 'top 90%', once: true }
-    });
+    gsap.fromTo(steps,
+      { autoAlpha: 0, y: 24 },
+      { autoAlpha: 1, y: 0, duration: 0.6, ease: 'cv.premium', stagger: 0.18,
+        scrollTrigger: { trigger: '.steps', start: 'top 90%', once: true } }
+    );
   } else {
     gsap.timeline({
       scrollTrigger: { trigger: '.steps', start: 'top 78%', once: true }
@@ -245,9 +250,10 @@ if (prefersReducedMotion) {
     .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, '-=0.4');
 
   // Footer
-  gsap.from('.footer__inner > *', {
-    autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out', stagger: 0.12,
-    scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true }
-  });
+  gsap.fromTo('.footer__inner > *',
+    { autoAlpha: 0, y: 12 },
+    { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.12,
+      scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true } }
+  );
 
 }
