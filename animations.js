@@ -42,7 +42,10 @@ function runHeroEntrance() {
       { autoAlpha: 1, y: 0, duration: 0.8, ease: 'cv.premium' }, 0.9)
     .fromTo('.nav .btn--sm',
       { autoAlpha: 0, x: 8 },
-      { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 0.8);
+      { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 0.8)
+    .fromTo('.hero__visual',
+      { autoAlpha: 0, y: 24, x: 12 },
+      { autoAlpha: 1, y: 0, x: 0, duration: 1.0, ease: 'cv.premium' }, 1.1);
 }
 
 
@@ -54,6 +57,8 @@ if (prefersReducedMotion) {
   document.body.style.overflow = '';
   gsap.set([
     '.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm',
+    '.hero__visual', '.showcase__label', '.showcase__headline', '.showcase__sub',
+    '.showcase__caption', '.showcase__devices',
     '.section__title', '.card', '.step', '.step__arrow',
     '.who__sub', '.tag', '.form-wrap', '.form__group', '#submit-btn',
     '.footer__inner > *'
@@ -62,7 +67,7 @@ if (prefersReducedMotion) {
 } else {
 
   // Hide hero elements immediately — prevents flash before prelude exits
-  gsap.set(['.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm'], { autoAlpha: 0 });
+  gsap.set(['.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm', '.hero__visual'], { autoAlpha: 0 });
 
   // Lock scroll during prelude
   document.body.style.overflow = 'hidden';
@@ -130,6 +135,8 @@ if (prefersReducedMotion) {
       ease: 'power2.out'
     }, 1.6)
     // Hold — let the scene breathe
+    // Snap scroll to top while panels still cover the viewport — invisible to the user
+    .call(() => window.scrollTo(0, 0), [], 3.3)
     // Curtain panels split apart
     .to('.prelude__panel--top',    { yPercent: -100, duration: 1.05, ease: 'power3.inOut' }, 3.3)
     .to('.prelude__panel--bottom', { yPercent:  100, duration: 1.05, ease: 'power3.inOut' }, 3.3)
@@ -169,6 +176,16 @@ if (prefersReducedMotion) {
     autoAlpha: 0, y: 40, duration: 0.7, ease: 'cv.premium', stagger: 0.15,
     scrollTrigger: { trigger: '.cards', start: 'top 80%', once: true }
   });
+
+  // "The Work" showcase
+  gsap.timeline({
+    scrollTrigger: { trigger: '.showcase', start: 'top 78%', once: true }
+  })
+    .from('.showcase__label',    { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out' })
+    .from('.showcase__headline', { autoAlpha: 0, y: 20, duration: 0.65, ease: 'cv.premium' }, '-=0.2')
+    .from('.showcase__sub',      { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+    .from('.showcase__caption',  { autoAlpha: 0, duration: 0.4, ease: 'power2.out' }, '-=0.1')
+    .from('.showcase__devices',  { autoAlpha: 0, y: 40, duration: 1.0, ease: 'cv.premium' }, '-=0.7');
 
   // "How It Works" — step → arrow → step → arrow → step
   const steps  = gsap.utils.toArray('.step');

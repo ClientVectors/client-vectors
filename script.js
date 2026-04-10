@@ -2,6 +2,11 @@
    CLIENT VECTORS — script.js
    ============================================ */
 
+// Prevent browser from restoring scroll position on reload —
+// prelude always plays at the top of the page
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 const CONFIG = {
   NAV_SCROLL_THRESHOLD: 20,
   NAV_OFFSET_PADDING:   16,
