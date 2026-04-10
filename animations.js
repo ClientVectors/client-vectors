@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger, CustomEase);
 CustomEase.create('cv.premium', 'M0,0 C0.16,1 0.3,1 1,1');
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile             = window.matchMedia('(max-width: 768px)').matches;
 
 
 // ============================================
@@ -44,8 +45,8 @@ function runHeroEntrance() {
       { autoAlpha: 0, y: 8 },
       { autoAlpha: 1, y: 0, duration: 0.4, ease: 'cv.premium' }, 1.5)
     .fromTo('.hero__visual',
-      { autoAlpha: 0, y: 16, filter: 'blur(8px)' },
-      { autoAlpha: 1, y: 0,  filter: 'blur(0px)', duration: 0.85, ease: 'cv.premium' }, 1.55);
+      isMobile ? { autoAlpha: 0, y: 16 }              : { autoAlpha: 0, y: 16, filter: 'blur(8px)' },
+      isMobile ? { autoAlpha: 1, y: 0, duration: 0.85, ease: 'cv.premium' } : { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.85, ease: 'cv.premium' }, 1.55);
 }
 
 
@@ -164,53 +165,68 @@ if (prefersReducedMotion) {
   // SCROLL REVEALS
   // ============================================
 
-  // Section titles — blur-snap (Tier 1 anchor: resolves in place, no y drift)
+  // Section titles — blur-snap on desktop, clean y-reveal on mobile
   gsap.utils.toArray('.section__title').forEach(title => {
-    gsap.from(title, {
-      autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium',
-      scrollTrigger: { trigger: title, start: 'top 85%', once: true }
-    });
+    gsap.fromTo(title,
+      isMobile ? { autoAlpha: 0, y: 12 } : { autoAlpha: 0, filter: 'blur(3px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'cv.premium',
+        scrollTrigger: { trigger: title, start: 'top 85%', once: true } }
+    );
   });
 
   // "What We Do" cards
   gsap.from('.card', {
     autoAlpha: 0, y: 10, duration: 0.65, ease: 'power2.out', stagger: 0.1,
-    scrollTrigger: { trigger: '.cards', start: 'top 82%', once: true }
+    scrollTrigger: { trigger: '.cards', start: isMobile ? 'top 90%' : 'top 82%', once: true }
   });
 
   // "The Work" showcase
   gsap.timeline({
-    scrollTrigger: { trigger: '.showcase', start: 'top 78%', once: true }
+    scrollTrigger: { trigger: '.showcase', start: isMobile ? 'top 90%' : 'top 78%', once: true }
   })
     .from('.showcase__label',    { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' })
-    .from('.showcase__headline', { autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium' }, '-=0.15')
+    .fromTo('.showcase__headline',
+      isMobile ? { autoAlpha: 0, y: 12 } : { autoAlpha: 0, filter: 'blur(3px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'cv.premium' }, '-=0.15')
     .from('.showcase__sub',      { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' }, '-=0.15')
     .from('.showcase__caption',  { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '-=0.1')
-    .from('.showcase__devices',  { autoAlpha: 0, y: 24, filter: 'blur(4px)', duration: 0.9, ease: 'cv.premium' }, '-=0.6');
+    .fromTo('.showcase__devices',
+      isMobile ? { autoAlpha: 0, y: 24 } : { autoAlpha: 0, y: 24, filter: 'blur(4px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: 'cv.premium' }, '-=0.6');
 
   // Problem Statement Band
   gsap.timeline({
     scrollTrigger: { trigger: '.problem-band__headline', start: 'top 85%', once: true }
   })
-    .from('.problem-band__headline', { autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium' })
+    .fromTo('.problem-band__headline',
+      isMobile ? { autoAlpha: 0, y: 12 } : { autoAlpha: 0, filter: 'blur(3px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5, ease: 'cv.premium' })
     .from('.problem-band__body',     { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' }, '-=0.1');
 
-  // "How It Works" — step → arrow → step → arrow → step
+  // "How It Works"
   const steps  = gsap.utils.toArray('.step');
   const arrows = gsap.utils.toArray('.step__arrow');
 
-  gsap.timeline({
-    scrollTrigger: { trigger: '.steps', start: 'top 78%', once: true }
-  })
-    .from(steps[0],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' })
-    .from(arrows[0], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
-    .from(steps[1],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15')
-    .from(arrows[1], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
-    .from(steps[2],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15');
+  if (isMobile) {
+    // On mobile arrows are display:none — skip them and stagger steps cleanly
+    gsap.from(steps, {
+      autoAlpha: 0, y: 24, duration: 0.6, ease: 'cv.premium', stagger: 0.18,
+      scrollTrigger: { trigger: '.steps', start: 'top 90%', once: true }
+    });
+  } else {
+    gsap.timeline({
+      scrollTrigger: { trigger: '.steps', start: 'top 78%', once: true }
+    })
+      .from(steps[0],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' })
+      .from(arrows[0], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
+      .from(steps[1],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15')
+      .from(arrows[1], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
+      .from(steps[2],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15');
+  }
 
   // "Who This Is For"
   gsap.timeline({
-    scrollTrigger: { trigger: '#who', start: 'top 80%', once: true }
+    scrollTrigger: { trigger: '#who', start: isMobile ? 'top 90%' : 'top 80%', once: true }
   })
     .from('#who .section__sub', { autoAlpha: 0, y: 16, duration: 0.6, ease: 'power2.out' })
     .from('.audience-card', {
@@ -219,7 +235,7 @@ if (prefersReducedMotion) {
 
   // Contact form
   gsap.timeline({
-    scrollTrigger: { trigger: '.form-wrap', start: 'top 80%', once: true }
+    scrollTrigger: { trigger: '.form-wrap', start: isMobile ? 'top 90%' : 'top 80%', once: true }
   })
     .from('.form-wrap',   { autoAlpha: 0, y: 36, duration: 0.8, ease: 'cv.premium' })
     .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out', stagger: 0.1 }, '-=0.4');
