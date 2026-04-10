@@ -71,6 +71,18 @@ if (prefersReducedMotion) {
   // Hide hero elements immediately — prevents flash before prelude exits
   gsap.set(['.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm', '.hero__visual'], { autoAlpha: 0 });
 
+  // Explicitly hide all scroll-animated elements before first paint.
+  // gsap.from() immediateRender is not guaranteed to beat the browser paint on mobile —
+  // this gsap.set() ensures elements are invisible from the start on all devices.
+  gsap.set([
+    '.section__title', '.card', '.step', '.step__arrow',
+    '.showcase__label', '.showcase__headline', '.showcase__sub', '.showcase__caption', '.showcase__devices',
+    '.problem-band__headline', '.problem-band__body',
+    '#who .section__sub', '.audience-card',
+    '.form-wrap', '.form__group',
+    '.footer__inner > *'
+  ], { autoAlpha: 0 });
+
   // Lock scroll during prelude
   document.body.style.overflow = 'hidden';
 
@@ -116,8 +128,12 @@ if (prefersReducedMotion) {
     onComplete: () => {
       document.body.style.overflow = '';
       document.getElementById('prelude').style.display = 'none';
-      ScrollTrigger.refresh();
-      runHeroEntrance();
+      // rAF lets the browser settle the layout change (prelude removal) before
+      // ScrollTrigger recalculates all trigger positions — critical on mobile
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        runHeroEntrance();
+      });
     }
   });
 
