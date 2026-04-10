@@ -111,7 +111,7 @@ function setStatus(msg, type) {
 
 function resetBtn() {
   submitBtn.disabled    = false;
-  submitBtn.textContent = 'Get a Free Website Concept';
+  submitBtn.textContent = 'Let\'s Get Started →';
 }
 
 function isValidEmail(email) {

@@ -424,7 +424,7 @@ a {
 
 /* Transparent PNG: renders as-is. Dark-bg PNG: uncomment mix-blend-mode below. */
 .footer__logo {
-  height: 28px;
+  height: 36px;
   width: auto;
   display: block;
   transform: scale(2.2);
