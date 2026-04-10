@@ -59,8 +59,9 @@ if (prefersReducedMotion) {
     '.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm',
     '.hero__visual', '.showcase__label', '.showcase__headline', '.showcase__sub',
     '.showcase__caption', '.showcase__devices',
+    '.problem-band__headline', '.problem-band__body',
     '.section__title', '.card', '.step', '.step__arrow',
-    '.who__sub', '.tag', '.form-wrap', '.form__group', '#submit-btn',
+    '#who .section__sub', '.audience-card', '.form-wrap', '.form__group', '#submit-btn',
     '.footer__inner > *'
   ], { autoAlpha: 1, y: 0, x: 0, scale: 1, filter: 'none' });
 
@@ -173,8 +174,8 @@ if (prefersReducedMotion) {
 
   // "What We Do" cards
   gsap.from('.card', {
-    autoAlpha: 0, y: 40, duration: 0.7, ease: 'cv.premium', stagger: 0.15,
-    scrollTrigger: { trigger: '.cards', start: 'top 80%', once: true }
+    autoAlpha: 0, y: 10, duration: 0.65, ease: 'power2.out', stagger: 0.1,
+    scrollTrigger: { trigger: '.cards', start: 'top 82%', once: true }
   });
 
   // "The Work" showcase
@@ -186,6 +187,13 @@ if (prefersReducedMotion) {
     .from('.showcase__sub',      { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.2')
     .from('.showcase__caption',  { autoAlpha: 0, duration: 0.4, ease: 'power2.out' }, '-=0.1')
     .from('.showcase__devices',  { autoAlpha: 0, y: 40, duration: 1.0, ease: 'cv.premium' }, '-=0.7');
+
+  // Problem Statement Band
+  gsap.timeline({
+    scrollTrigger: { trigger: '.problem-band__headline', start: 'top 85%', once: true }
+  })
+    .from('.problem-band__headline', { autoAlpha: 0, y: 20, duration: 0.65, ease: 'cv.premium' })
+    .from('.problem-band__body',     { autoAlpha: 0, y: 14, duration: 0.5,  ease: 'power2.out' }, '-=0.2');
 
   // "How It Works" — step → arrow → step → arrow → step
   const steps  = gsap.utils.toArray('.step');
@@ -202,12 +210,12 @@ if (prefersReducedMotion) {
 
   // "Who This Is For"
   gsap.timeline({
-    scrollTrigger: { trigger: '#who', start: 'top 82%', once: true }
+    scrollTrigger: { trigger: '#who', start: 'top 80%', once: true }
   })
-    .from('.who__sub', { autoAlpha: 0, y: 16, duration: 0.6, ease: 'power2.out' })
-    .from('.tag', {
-      autoAlpha: 0, y: 12, scale: 0.94, duration: 0.5, ease: 'cv.premium', stagger: 0.07
-    }, '-=0.3');
+    .from('#who .section__sub', { autoAlpha: 0, y: 16, duration: 0.6, ease: 'power2.out' })
+    .from('.audience-card', {
+      autoAlpha: 0, y: 30, scale: 0.97, duration: 0.7, ease: 'cv.premium', stagger: 0.12
+    }, '-=0.25');
 
   // Contact form
   gsap.timeline({

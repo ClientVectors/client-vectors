@@ -38,6 +38,16 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 
 
+// --- Audience flip cards ---
+document.querySelectorAll('.flip-card').forEach(card => {
+  const toggle = () => card.classList.toggle('is-flipped');
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+});
+
+
 // --- Contact form (Formspree AJAX) ---
 const form      = document.getElementById('contact-form');
 const statusEl  = document.getElementById('form-status');
