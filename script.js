@@ -38,12 +38,43 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 
 
-// --- Audience flip cards ---
+// --- Audience flip cards — compress → release → flip ---
 document.querySelectorAll('.flip-card').forEach(card => {
-  const toggle = () => card.classList.toggle('is-flipped');
-  card.addEventListener('click', toggle);
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pressing = false;
+
+  const compress = () => {
+    pressing = true;
+    if (prefersReduced) return;
+    gsap.to(card, { scale: 0.96, duration: 0.1, ease: 'power2.in', overwrite: true });
+  };
+
+  const releaseFlip = () => {
+    if (!pressing) return;
+    pressing = false;
+    card.classList.toggle('is-flipped');
+    if (prefersReduced) return;
+    gsap.to(card, { scale: 1, duration: 0.35, ease: 'back.out(1.4)', overwrite: true });
+  };
+
+  const releaseCancel = () => {
+    if (!pressing) return;
+    pressing = false;
+    if (prefersReduced) return;
+    gsap.to(card, { scale: 1, duration: 0.25, ease: 'power2.out', overwrite: true });
+  };
+
+  card.addEventListener('pointerdown',   compress);
+  card.addEventListener('pointerup',     releaseFlip);
+  card.addEventListener('pointerleave',  releaseCancel);
+  card.addEventListener('pointercancel', releaseCancel);
+
   card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      compress();
+      setTimeout(() => releaseFlip(), 80);
+    }
   });
 });
 

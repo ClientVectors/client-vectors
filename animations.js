@@ -36,16 +36,16 @@ function runHeroEntrance() {
     .to('.word-inner',    { y: '0%', duration: 0.75, ease: 'cv.premium', stagger: 0.055 })
     .fromTo('.hero__sub',
       { autoAlpha: 0, filter: 'blur(10px)', y: 16 },
-      { autoAlpha: 1, filter: 'blur(0px)',  y: 0, duration: 1.1, ease: 'power3.out' }, 0.5)
-    .fromTo('.hero .btn--lg',
-      { autoAlpha: 0, y: 20 },
-      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'cv.premium' }, 0.9)
+      { autoAlpha: 1, filter: 'blur(0px)',  y: 0, duration: 0.85, ease: 'power3.out' }, 0.5)
     .fromTo('.nav .btn--sm',
       { autoAlpha: 0, x: 8 },
       { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power2.out' }, 0.8)
+    .fromTo('.hero .btn--lg',
+      { autoAlpha: 0, y: 8 },
+      { autoAlpha: 1, y: 0, duration: 0.4, ease: 'cv.premium' }, 1.5)
     .fromTo('.hero__visual',
-      { autoAlpha: 0, y: 24, x: 12 },
-      { autoAlpha: 1, y: 0, x: 0, duration: 1.0, ease: 'cv.premium' }, 1.1);
+      { autoAlpha: 0, y: 16, filter: 'blur(8px)' },
+      { autoAlpha: 1, y: 0,  filter: 'blur(0px)', duration: 0.85, ease: 'cv.premium' }, 1.55);
 }
 
 
@@ -164,10 +164,10 @@ if (prefersReducedMotion) {
   // SCROLL REVEALS
   // ============================================
 
-  // Section titles
+  // Section titles — blur-snap (Tier 1 anchor: resolves in place, no y drift)
   gsap.utils.toArray('.section__title').forEach(title => {
     gsap.from(title, {
-      autoAlpha: 0, y: 20, duration: 0.7, ease: 'power2.out',
+      autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium',
       scrollTrigger: { trigger: title, start: 'top 85%', once: true }
     });
   });
@@ -182,18 +182,18 @@ if (prefersReducedMotion) {
   gsap.timeline({
     scrollTrigger: { trigger: '.showcase', start: 'top 78%', once: true }
   })
-    .from('.showcase__label',    { autoAlpha: 0, y: 16, duration: 0.5, ease: 'power2.out' })
-    .from('.showcase__headline', { autoAlpha: 0, y: 20, duration: 0.65, ease: 'cv.premium' }, '-=0.2')
-    .from('.showcase__sub',      { autoAlpha: 0, y: 12, duration: 0.5, ease: 'power2.out' }, '-=0.2')
-    .from('.showcase__caption',  { autoAlpha: 0, duration: 0.4, ease: 'power2.out' }, '-=0.1')
-    .from('.showcase__devices',  { autoAlpha: 0, y: 40, duration: 1.0, ease: 'cv.premium' }, '-=0.7');
+    .from('.showcase__label',    { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' })
+    .from('.showcase__headline', { autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium' }, '-=0.15')
+    .from('.showcase__sub',      { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' }, '-=0.15')
+    .from('.showcase__caption',  { autoAlpha: 0, duration: 0.35, ease: 'power2.out' }, '-=0.1')
+    .from('.showcase__devices',  { autoAlpha: 0, y: 24, filter: 'blur(4px)', duration: 0.9, ease: 'cv.premium' }, '-=0.6');
 
   // Problem Statement Band
   gsap.timeline({
     scrollTrigger: { trigger: '.problem-band__headline', start: 'top 85%', once: true }
   })
-    .from('.problem-band__headline', { autoAlpha: 0, y: 20, duration: 0.65, ease: 'cv.premium' })
-    .from('.problem-band__body',     { autoAlpha: 0, y: 14, duration: 0.5,  ease: 'power2.out' }, '-=0.2');
+    .from('.problem-band__headline', { autoAlpha: 0, filter: 'blur(3px)', duration: 0.5, ease: 'cv.premium' })
+    .from('.problem-band__body',     { autoAlpha: 0, y: 10, duration: 0.45, ease: 'power2.out' }, '-=0.1');
 
   // "How It Works" — step → arrow → step → arrow → step
   const steps  = gsap.utils.toArray('.step');
