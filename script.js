@@ -79,7 +79,7 @@ if (form && statusEl && submitBtn) {
 
       if (res.ok) {
         form.reset();
-        setStatus("Thanks! I'll be in touch with your free website concept shortly.", 'success');
+        setStatus("Thanks! Our team will be in touch with your free website concept shortly.", 'success');
         submitBtn.textContent = 'Sent ✓';
         setTimeout(() => resetBtn(), CONFIG.BTN_RESET_DELAY);
       } else {
@@ -91,7 +91,7 @@ if (form && statusEl && submitBtn) {
     } catch (error) {
       if (error.name === 'AbortError') return;
       console.error('Form submission failed:', error);
-      setStatus('Something went wrong. Please try again or email us directly at louis@clientvectors.com.', 'error');
+      setStatus('Something went wrong. Please try again or email us directly at contact@clientvectors.com.', 'error');
       resetBtn();
     }
   });
