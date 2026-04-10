@@ -476,7 +476,7 @@ a {
 
 @media (max-width: 640px) {
   .audience-cards { grid-template-columns: 1fr; }
-  .flip-card { height: 240px; }
+  .flip-card { height: 300px; }
 }
 
 /* Reduced motion — skip flip animation */
@@ -1523,7 +1523,8 @@ a {
   }
 
   .hero__visual {
-    display: none;
+    max-width: 340px;
+    margin: 0 auto;
   }
 
   .phone-mockup {
