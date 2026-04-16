@@ -68,8 +68,18 @@ if (prefersReducedMotion) {
 
 } else {
 
-  // Hide hero elements immediately — prevents flash before prelude exits
-  gsap.set(['.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm', '.hero__visual'], { autoAlpha: 0 });
+  // Hide ALL animated elements immediately — prevents flash before prelude exits
+  // and prevents scroll-triggered elements from showing before user scrolls to them
+  gsap.set([
+    '.hero__headline', '.hero__sub', '.hero .btn--lg', '.nav .btn--sm', '.hero__visual',
+    '.section__title', '.card',
+    '.showcase__label', '.showcase__headline', '.showcase__sub', '.showcase__caption', '.showcase__devices',
+    '.problem-band__headline', '.problem-band__body',
+    '.step', '.step__arrow',
+    '#who .section__sub', '.audience-card',
+    '.form-wrap', '.form__group',
+    '.footer__inner > *'
+  ], { autoAlpha: 0 });
 
   // Lock scroll during prelude
   document.body.style.overflow = 'hidden';
@@ -121,7 +131,8 @@ if (prefersReducedMotion) {
       // fonts.ready resolves immediately if already loaded (fast connections / desktop).
       document.fonts.ready.then(() => {
         requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
+          ScrollTrigger.refresh();     // recalculate layout (no scroll triggers registered yet)
+          initScrollAnimations();      // register triggers after layout is stable
           runHeroEntrance();
         });
       });
@@ -170,10 +181,13 @@ if (prefersReducedMotion) {
 
   // ============================================
   // SCROLL REVEALS
+  // Called after prelude exits so triggers are only registered (and evaluated)
+  // once the user is looking at the hero — nothing below the fold fires early.
   // ============================================
+  function initScrollAnimations() {
 
-  // Mobile animations run ~40% slower for better readability on touch scroll
-  const d = isMobile ? 1.4 : 1;
+  // Mobile animations run slower for better readability on touch scroll
+  const d = isMobile ? 1.8 : 1.35;
 
   // Section titles — blur-snap on desktop, clean y-reveal on mobile
   gsap.utils.toArray('.section__title').forEach(title => {
@@ -195,12 +209,18 @@ if (prefersReducedMotion) {
   gsap.timeline({
     scrollTrigger: { trigger: '.showcase', start: isMobile ? 'top 90%' : 'top 78%', once: true }
   })
-    .from('.showcase__label',    { autoAlpha: 0, y: 10, duration: 0.45 * d, ease: 'power2.out' })
+    .fromTo('.showcase__label',
+      { autoAlpha: 0, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.45 * d, ease: 'power2.out' })
     .fromTo('.showcase__headline',
       isMobile ? { autoAlpha: 0, y: 12 } : { autoAlpha: 0, filter: 'blur(3px)' },
       { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5 * d, ease: 'cv.premium' }, '-=0.15')
-    .from('.showcase__sub',      { autoAlpha: 0, y: 10, duration: 0.45 * d, ease: 'power2.out' }, '-=0.15')
-    .from('.showcase__caption',  { autoAlpha: 0, duration: 0.35 * d, ease: 'power2.out' }, '-=0.1')
+    .fromTo('.showcase__sub',
+      { autoAlpha: 0, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.45 * d, ease: 'power2.out' }, '-=0.15')
+    .fromTo('.showcase__caption',
+      { autoAlpha: 0 },
+      { autoAlpha: 1, duration: 0.35 * d, ease: 'power2.out' }, '-=0.1')
     .fromTo('.showcase__devices',
       isMobile ? { autoAlpha: 0, y: 24 } : { autoAlpha: 0, y: 24, filter: 'blur(4px)' },
       { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.9 * d, ease: 'cv.premium' }, '-=0.6');
@@ -212,7 +232,9 @@ if (prefersReducedMotion) {
     .fromTo('.problem-band__headline',
       isMobile ? { autoAlpha: 0, y: 12 } : { autoAlpha: 0, filter: 'blur(3px)' },
       { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.5 * d, ease: 'cv.premium' })
-    .from('.problem-band__body',     { autoAlpha: 0, y: 10, duration: 0.45 * d, ease: 'power2.out' }, '-=0.1');
+    .fromTo('.problem-band__body',
+      { autoAlpha: 0, y: 10 },
+      { autoAlpha: 1, y: 0, duration: 0.45 * d, ease: 'power2.out' }, '-=0.1');
 
   // "How It Works"
   const steps  = gsap.utils.toArray('.step');
@@ -229,28 +251,34 @@ if (prefersReducedMotion) {
     gsap.timeline({
       scrollTrigger: { trigger: '.steps', start: 'top 78%', once: true }
     })
-      .from(steps[0],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' })
-      .from(arrows[0], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
-      .from(steps[1],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15')
-      .from(arrows[1], { autoAlpha: 0, x: -8, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
-      .from(steps[2],  { autoAlpha: 0, y: 30, duration: 0.65, ease: 'cv.premium' }, '-=0.15');
+      .fromTo(steps[0],  { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.65, ease: 'cv.premium' })
+      .fromTo(arrows[0], { autoAlpha: 0, x: -8  }, { autoAlpha: 1, x: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
+      .fromTo(steps[1],  { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.65, ease: 'cv.premium' }, '-=0.15')
+      .fromTo(arrows[1], { autoAlpha: 0, x: -8  }, { autoAlpha: 1, x: 0, duration: 0.4,  ease: 'power2.out' }, '-=0.25')
+      .fromTo(steps[2],  { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.65, ease: 'cv.premium' }, '-=0.15');
   }
 
   // "Who This Is For"
   gsap.timeline({
     scrollTrigger: { trigger: '#who', start: isMobile ? 'top 90%' : 'top 80%', once: true }
   })
-    .from('#who .section__sub', { autoAlpha: 0, y: 16, duration: 0.6 * d, ease: 'power2.out' })
-    .from('.audience-card', {
-      autoAlpha: 0, y: 30, scale: 0.97, duration: 0.7 * d, ease: 'cv.premium', stagger: 0.12 * d
-    }, '-=0.25');
+    .fromTo('#who .section__sub',
+      { autoAlpha: 0, y: 16 },
+      { autoAlpha: 1, y: 0, duration: 0.6 * d, ease: 'power2.out' })
+    .fromTo('.audience-card',
+      { autoAlpha: 0, y: 30, scale: 0.97 },
+      { autoAlpha: 1, y: 0, scale: 1, duration: 0.7 * d, ease: 'cv.premium', stagger: 0.12 * d }, '-=0.25');
 
   // Contact form
   gsap.timeline({
     scrollTrigger: { trigger: '.form-wrap', start: isMobile ? 'top 90%' : 'top 80%', once: true }
   })
-    .from('.form-wrap',   { autoAlpha: 0, y: 36, duration: 0.8 * d, ease: 'cv.premium' })
-    .from('.form__group', { autoAlpha: 0, y: 16, duration: 0.5 * d, ease: 'power2.out', stagger: 0.1 * d }, '-=0.4');
+    .fromTo('.form-wrap',
+      { autoAlpha: 0, y: 36 },
+      { autoAlpha: 1, y: 0, duration: 0.8 * d, ease: 'cv.premium' })
+    .fromTo('.form__group',
+      { autoAlpha: 0, y: 16 },
+      { autoAlpha: 1, y: 0, duration: 0.5 * d, ease: 'power2.out', stagger: 0.1 * d }, '-=0.4');
 
   // Footer
   gsap.fromTo('.footer__inner > *',
@@ -258,5 +286,7 @@ if (prefersReducedMotion) {
     { autoAlpha: 1, y: 0, duration: 0.5 * d, ease: 'power2.out', stagger: 0.12 * d,
       scrollTrigger: { trigger: '.footer', start: 'top 95%', once: true } }
   );
+
+  } // end initScrollAnimations
 
 }

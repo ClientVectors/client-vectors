@@ -7,7 +7,7 @@
   <meta name="description" content="Sharp, custom websites for restaurants, barbershops, salons, cafés, and local service businesses — built to strengthen your online presence and bring in more customers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700;1,800&family=Bebas+Neue&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234D7EFF'/><text y='.9em' font-size='64' x='18'>CV</text></svg>">
 </head>
@@ -52,33 +52,27 @@
               <div class="browser-mockup__url">the-corner-cafe.com</div>
             </div>
             <div class="browser-mockup__body mock-cafe-body">
-              <div class="mock-nav mock-nav--cafe">
-                <span class="mock-nav__brand">Corner Café</span>
-                <div class="mock-nav__links">
-                  <span>Menu</span>
-                  <span>Reservations</span>
-                </div>
-              </div>
-              <div class="mock-hero-zone mock-hero-zone--cafe">
-                <div class="mock-hero-zone__content mock-cafe-hero__content">
-                  <div class="mock-cafe-eyebrow">Downtown · Est. 2014</div>
-                  <div class="mock-hero-zone__headline">
-                    <span>Honest Food.</span>
-                    <span>Good Company.</span>
+              <div class="mock-cafe-scene">
+                <img src="assets/cafe-hero.jpg" alt="" draggable="false">
+                <div class="mock-cafe-row-top">
+                  <span class="mock-cafe-wordmark">Corner Café</span>
+                  <div class="mock-cafe-status-pill">
+                    <span class="mock-cafe-status-dot"></span>
+                    <span class="mock-cafe-status-text">Open Now</span>
                   </div>
-                  <div class="mock-cafe-cta">Reserve a Table →</div>
                 </div>
-              </div>
-              <div class="mock-cafe-strip">
-                <div class="mock-cafe-strip__hours">
-                  <span class="mock-cafe-strip__dot"></span>
-                  <span class="mock-cafe-strip__open">Open today</span>
-                  <span class="mock-cafe-strip__time">9 am – 10 pm</span>
+                <div class="mock-cafe-center">
+                  <span class="mock-cafe-loc">Est. 2014 · Downtown</span>
+                  <div class="mock-cafe-headline">Honest<br>Food.</div>
                 </div>
-                <div class="mock-cafe-strip__divider"></div>
-                <div class="mock-cafe-strip__special">
-                  <span class="mock-cafe-strip__special-label">Today's special</span>
-                  <span class="mock-cafe-strip__special-name">Eggs Benedict · $18</span>
+                <div class="mock-cafe-row-bottom">
+                  <div class="mock-cafe-row-bottom__left">
+                    <div class="mock-cafe-cta-pill">Reserve a Table →</div>
+                  </div>
+                  <div class="mock-cafe-row-bottom__right">
+                    <span class="mock-cafe-rating">★★★★★ 4.9</span>
+                    <span class="mock-cafe-rating-sub">312 reviews</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -156,56 +150,27 @@
               <div class="browser-mockup__url">classiccuts-barbershop.com</div>
             </div>
             <div class="browser-mockup__body">
-              <div class="mock-barber-topbar"></div>
-              <div class="mock-nav mock-nav--barber">
-                <span class="mock-nav__brand">CLASSIC CUTS</span>
-                <div class="mock-nav__links">
-                  <span>Services</span>
-                  <span>Gallery</span>
-                  <span>About</span>
-                  <span class="mock-nav__book">Book Now</span>
-                </div>
-              </div>
-              <div class="mock-hero-zone mock-hero-zone--barber">
-                <div class="mock-hero-zone__content mock-barber-hero__content">
-                  <div class="mock-barber-eyebrow">Est. 1998 · Downtown</div>
-                  <div class="mock-hero-zone__headline">
-                    <span>Precision Cuts.</span>
-                    <span>Classic Style.</span>
+              <div class="mock-barber-bands">
+                <div class="mock-barber-top-band">
+                  <div class="mock-barber-headline">Classic Cuts</div>
+                  <div class="mock-barber-meta">
+                    <span class="mock-barber-est">Est. 1998</span>
+                    <span class="mock-barber-loc">Downtown</span>
                   </div>
-                  <div class="mock-barber-rule"></div>
-                  <div class="mock-hero-zone__cta mock-barber-cta">Book an Appointment →</div>
                 </div>
-              </div>
-              <div class="mock-barber-services">
-                <div class="mock-barber-service-row">
-                  <span class="mock-barber-service-name">The Classic Cut</span>
-                  <span class="mock-barber-service-dots"></span>
-                  <span class="mock-barber-service-price">$35</span>
+                <div class="mock-barber-photo-strip">
+                  <img src="assets/barbershop-demo.jpg" alt="" draggable="false">
                 </div>
-                <div class="mock-barber-service-row">
-                  <span class="mock-barber-service-name">Skin Fade</span>
-                  <span class="mock-barber-service-dots"></span>
-                  <span class="mock-barber-service-price">$40</span>
+                <div class="mock-barber-bottom-band">
+                  <div class="mock-barber-services-row">
+                    <span class="mock-barber-svc-item">Classic Cut $35</span>
+                    <span class="mock-barber-svc-dot">·</span>
+                    <span class="mock-barber-svc-item">Skin Fade $40</span>
+                    <span class="mock-barber-svc-dot">·</span>
+                    <span class="mock-barber-svc-item">Beard Trim $25</span>
+                  </div>
+                  <div class="mock-barber-book">Book Now →</div>
                 </div>
-                <div class="mock-barber-service-row">
-                  <span class="mock-barber-service-name">Beard Trim</span>
-                  <span class="mock-barber-service-dots"></span>
-                  <span class="mock-barber-service-price">$25</span>
-                </div>
-                <div class="mock-barber-service-row mock-barber-service-row--last">
-                  <span class="mock-barber-service-name">Hot Towel Shave</span>
-                  <span class="mock-barber-service-dots"></span>
-                  <span class="mock-barber-service-price">$45</span>
-                </div>
-              </div>
-              <div class="mock-barber-booking">
-                <div class="mock-barber-booking__slot">
-                  <span class="mock-barber-booking__dot"></span>
-                  <span class="mock-barber-booking__label">Next available</span>
-                  <span class="mock-barber-booking__time">Today · 2:30 pm</span>
-                </div>
-                <div class="mock-barber-booking__btn">Book Now →</div>
               </div>
             </div>
           </div>
@@ -214,34 +179,27 @@
               <div class="phone-mockup__notch"></div>
               <div class="phone-mockup__screen">
                 <div class="mock-barber-topbar"></div>
-                <div class="mock-mobile-nav">
-                  <span class="mock-nav__brand">CC</span>
-                  <span class="mock-hamburger">☰</span>
+                <div class="mock-phone-booking-header">
+                  <span class="mock-phone-back-arrow">&#8592;</span>
+                  <span class="mock-phone-booking-title">Book Your Visit</span>
                 </div>
-                <div class="mock-mobile-hero mock-mobile-hero--barber">
-                  <div class="mock-barber-eyebrow">Est. 1998 · Downtown</div>
-                  <div class="mock-hero-zone__headline">
-                    <span>Precision</span>
-                    <span>Cuts.</span>
+                <div class="mock-phone-booking-body">
+                  <div class="mock-phone-service-card">
+                    <span class="mock-phone-service-name">Skin Fade</span>
+                    <span class="mock-phone-service-price">$40</span>
                   </div>
-                  <div class="mock-hero-zone__cta mock-barber-cta">Book Now →</div>
-                </div>
-                <div class="mock-mobile-services">
-                  <div class="mock-barber-service-row">
-                    <span class="mock-barber-service-name">Classic Cut</span>
-                    <span class="mock-barber-service-dots"></span>
-                    <span class="mock-barber-service-price">$35</span>
+                  <div class="mock-phone-barber-card">
+                    <div class="mock-phone-avatar"></div>
+                    <div class="mock-phone-barber-info">
+                      <span class="mock-phone-barber-name">with Marcus</span>
+                      <span class="mock-phone-barber-stars">★★★★★</span>
+                    </div>
                   </div>
-                  <div class="mock-barber-service-row mock-barber-service-row--last">
-                    <span class="mock-barber-service-name">Skin Fade</span>
-                    <span class="mock-barber-service-dots"></span>
-                    <span class="mock-barber-service-price">$40</span>
+                  <div class="mock-phone-datetime-card">
+                    <span class="mock-phone-dt-dot"></span>
+                    <span class="mock-phone-dt-text">Today · 2:30 pm</span>
                   </div>
-                </div>
-                <div class="mock-barber-booking mock-barber-booking--mobile">
-                  <span class="mock-barber-booking__dot"></span>
-                  <span class="mock-barber-booking__time">Today · 2:30 pm</span>
-                  <div class="mock-barber-booking__btn">Book →</div>
+                  <div class="mock-phone-confirm-btn">Confirm Booking &#8594;</div>
                 </div>
               </div>
             </div>

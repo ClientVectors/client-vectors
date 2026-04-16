@@ -978,7 +978,7 @@ a {
 /* Warm cream info strip — biggest differentiator from barber's all-dark layout */
 .mock-cafe-strip {
   background: #F2E8D4;
-  padding: 0.45rem 0.625rem;
+  padding: 0.3rem 0.625rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1090,9 +1090,18 @@ a {
   text-align: left;
 }
 
-.showcase__devices .mock-hero-zone--barber::before,
-.showcase__devices .mock-hero-zone--barber::after {
+.showcase__devices .mock-hero-zone--barber::before {
   display: none;
+}
+.showcase__devices .mock-hero-zone--barber::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 35%; height: 100%;
+  background: linear-gradient(to left, rgba(8, 4, 2, 0.5) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  display: block;
 }
 
 .mock-barber-hero__content {
@@ -1111,7 +1120,7 @@ a {
 .showcase__devices .mock-hero-zone__headline span,
 .phone-mockup .mock-hero-zone__headline span {
   color: #F0E4D4;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.02em;
   text-shadow: 0 1px 8px rgba(0,0,0,0.6);
 }
@@ -1140,7 +1149,7 @@ a {
 .mock-barber-services {
   background: #0C0906;
   padding: 0.5rem 0.7rem;
-  border-bottom: 1px solid #1E1410;
+  border-bottom: none;
 }
 
 .mock-barber-service-row {
@@ -1291,6 +1300,1545 @@ a {
 .mock-barber-booking--mobile .mock-barber-booking__btn {
   font-size: 0.265rem;
   padding: 0.15rem 0.35rem;
+}
+
+/* ============================================================
+   CAFÉ DEMO — REDESIGN ADDITIONS
+   ============================================================ */
+
+.mock-cafe-reserve-pill {
+  display: inline-block;
+  background: transparent;
+  color: #C8883A;
+  border: 1px solid rgba(200, 136, 58, 0.5);
+  border-radius: 100px;
+  font-size: 0.3rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Split hero — left dark editorial panel + right photo column */
+.mock-cafe-split {
+  display: flex;
+  height: 125px;
+  overflow: hidden;
+}
+
+.mock-cafe-split__left {
+  flex: 0 0 55%;
+  background: #100D09;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.6rem 0.55rem;
+  position: relative;
+  z-index: 1;
+}
+
+.mock-cafe-split__right {
+  flex: 0 0 45%;
+  position: relative;
+  overflow: hidden;
+}
+
+.mock-cafe-split__right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+
+/* Left-edge gradient fade on the photo column */
+.mock-cafe-split__right::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%; height: 100%;
+  background: linear-gradient(to right, #100D09 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* "Open Now" indicator inside split panel */
+.mock-cafe-open-indicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+
+.mock-cafe-open-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #4A9E6A;
+  flex-shrink: 0;
+}
+
+.mock-cafe-open-label {
+  font-size: 0.255rem;
+  color: #4A9E6A;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Social proof bar */
+.mock-cafe-proof {
+  background: #F5ECD8;
+  padding: 0.28rem 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.mock-cafe-proof__stars {
+  font-size: 0.3rem;
+  color: #C8883A;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.mock-cafe-proof__text {
+  font-size: 0.255rem;
+  color: #5A4835;
+  letter-spacing: 0.02em;
+}
+
+/* Today's Menu row */
+.mock-cafe-menu {
+  background: #F2E8D4;
+  padding: 0.32rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-top: 1px solid rgba(100, 80, 50, 0.12);
+}
+
+.mock-cafe-menu__label {
+  font-size: 0.255rem;
+  color: #9A7A50;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-right: 0.1rem;
+  flex-shrink: 0;
+}
+
+.mock-cafe-menu-card {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.mock-cafe-menu-card__thumb {
+  width: 20px; height: 16px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.mock-cafe-menu-card__thumb--eggs      { background: linear-gradient(135deg, #C8883A 0%, #D4691A 100%); }
+.mock-cafe-menu-card__thumb--coffee    { background: linear-gradient(135deg, #4A2A0A 0%, #6B3D18 100%); }
+.mock-cafe-menu-card__thumb--croissant { background: linear-gradient(135deg, #C09040 0%, #A87030 100%); }
+
+.mock-cafe-menu-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.mock-cafe-menu-card__name {
+  font-size: 0.265rem;
+  color: #3A2E20;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.mock-cafe-menu-card__price {
+  font-size: 0.255rem;
+  color: #9A7A50;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* ============================================================
+   BARBER DEMO — REDESIGN ADDITIONS
+   ============================================================ */
+
+/* CC monogram badge */
+.mock-barber-monogram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B84830 0%, #7A2E1A 100%);
+  font-size: 0.245rem;
+  font-weight: 700;
+  color: #F5EAE0;
+  flex-shrink: 0;
+  margin-right: 3px;
+}
+
+/* Nav brand wrapper (holds monogram + text side by side) */
+.mock-barber-nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+/* Gallery strip */
+.mock-barber-gallery {
+  background: #0A0806;
+  padding: 0.4rem 0.625rem;
+  border-bottom: 1px solid #1A1008;
+}
+
+.mock-barber-gallery__header {
+  margin-bottom: 0.28rem;
+}
+
+.mock-barber-gallery__label {
+  font-size: 0.27rem;
+  color: #7A6858;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.mock-barber-gallery__thumbs {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.mock-barber-thumb {
+  width: 40px; height: 36px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(180, 72, 48, 0.22);
+}
+
+.mock-barber-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: right 20%;
+  display: block;
+}
+
+.mock-barber-thumb--2 { background: linear-gradient(145deg, #2A1A10 0%, #1A0E06 100%); }
+.mock-barber-thumb--3 { background: linear-gradient(160deg, #1E1208 0%, #2E1A0C 100%); }
+.mock-barber-thumb--4 { background: linear-gradient(120deg, #261608 0%, #180E04 100%); }
+
+/* Services section header label */
+.mock-barber-services-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.32rem 0.7rem 0.18rem;
+  background: #0C0906;
+  border-bottom: 1px solid #1A1008;
+}
+
+.mock-barber-services-title {
+  font-size: 0.27rem;
+  color: #7A6858;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.mock-barber-services-count {
+  font-size: 0.255rem;
+  color: #4A3828;
+  letter-spacing: 0.04em;
+}
+
+/* Review strip */
+.mock-barber-review {
+  background: #0E0A06;
+  padding: 0.42rem 0.7rem;
+  border-top: 1px solid #1A1008;
+  border-bottom: 1px solid #1A1008;
+}
+
+.mock-barber-review__stars {
+  font-size: 0.3rem;
+  color: #C8883A;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.mock-barber-review__quote {
+  font-size: 0.275rem;
+  color: #C0A890;
+  font-style: italic;
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+
+.mock-barber-review__author {
+  font-size: 0.255rem;
+  color: #5A4838;
+  letter-spacing: 0.04em;
+}
+
+/* Booking avatar circle */
+.mock-barber-booking__avatar {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3A2218 0%, #2A1610 100%);
+  border: 1px solid rgba(180, 72, 48, 0.3);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.22rem;
+  color: #C8883A;
+  font-weight: 700;
+}
+
+/* Booking slot wrapper — groups dot + label + time */
+.mock-barber-booking__slot {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+}
+
+/* ============================================================
+   PHONE — BOOKING CONFIRMATION REDESIGN
+   ============================================================ */
+
+.mock-phone-booking-header {
+  background: #0E0A08;
+  padding: 5px 7px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid #221610;
+}
+
+.mock-phone-back-arrow {
+  font-size: 0.4rem;
+  color: #C85838;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.mock-phone-booking-title {
+  font-size: 0.32rem;
+  font-weight: 600;
+  color: #EDE0CC;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+.mock-phone-booking-body {
+  background: #0C0906;
+  padding: 5px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mock-phone-service-card {
+  background: #160E08;
+  border: 1px solid #2A1A10;
+  border-radius: 3px;
+  padding: 4px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mock-phone-service-name {
+  font-size: 0.295rem;
+  color: #D0C0B0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.mock-phone-service-price {
+  font-size: 0.295rem;
+  color: #C85838;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.mock-phone-barber-card {
+  background: #160E08;
+  border: 1px solid #2A1A10;
+  border-radius: 3px;
+  padding: 4px 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-phone-avatar {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3A2218 0%, #2A1610 100%);
+  border: 1px solid rgba(180, 72, 48, 0.35);
+  flex-shrink: 0;
+}
+
+.mock-phone-barber-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+
+.mock-phone-barber-name {
+  font-size: 0.28rem;
+  color: #C0A890;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.mock-phone-barber-stars {
+  font-size: 0.255rem;
+  color: #C8883A;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.mock-phone-datetime-card {
+  border: 1px solid rgba(200, 88, 56, 0.45);
+  border-radius: 3px;
+  padding: 4px 5px;
+  background: rgba(200, 88, 56, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-phone-dt-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #4A9E5A;
+  flex-shrink: 0;
+}
+
+.mock-phone-dt-text {
+  font-size: 0.28rem;
+  color: #C0A890;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.mock-phone-confirm-btn {
+  background: #B84830;
+  color: #F5EAE0;
+  font-size: 0.28rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.28rem 0.5rem;
+  border-radius: 2px;
+  text-align: center;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   DEMO TYPOGRAPHY — DISTINCT FONTS PER MOCKUP
+   ============================================================ */
+
+/* Café — Playfair Display for brand + headline */
+.mock-cafe-brand {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.mock-cafe-bento__headline span {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Barber — Bebas Neue for brand name in card */
+.mock-barber-card__cc,
+.mock-barber-card__name {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+/* v4 updated font targets */
+.mock-cafe-wordmark,
+.mock-cafe-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.mock-barber-display {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+/* v5 barber brand */
+.mock-barber-brand {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+/* v6 barber headline */
+.mock-barber-headline {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+/* ============================================================
+   CAFÉ DEMO — BENTO GRID (v2)
+   ============================================================ */
+
+.mock-cafe-header {
+  background: #100D09;
+  border-bottom: 1px solid rgba(255, 220, 160, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.625rem;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.mock-cafe-brand {
+  font-size: 0.38rem;
+  color: #EDE0C4;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.mock-cafe-header-cta {
+  font-size: 0.28rem;
+  color: #C8883A;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(200, 136, 58, 0.4);
+  border-radius: 100px;
+  padding: 0.1rem 0.35rem;
+}
+
+.mock-cafe-bento {
+  display: grid;
+  grid-template-columns: 62% 38%;
+  height: 162px;
+  overflow: hidden;
+}
+
+.mock-cafe-bento__photo {
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(200, 136, 58, 0.1);
+}
+
+.mock-cafe-bento__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.mock-cafe-bento__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.45rem 0.5rem 0.4rem;
+  background: linear-gradient(to top, rgba(10, 6, 3, 0.94) 0%, rgba(10, 6, 3, 0.45) 55%, transparent 100%);
+}
+
+.mock-cafe-bento__brand-small {
+  font-size: 0.25rem;
+  color: rgba(210, 155, 80, 0.8);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.mock-cafe-bento__headline {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.0;
+}
+
+.mock-cafe-bento__headline span {
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-style: italic;
+  color: #F5ECD8;
+  letter-spacing: -0.02em;
+  display: block;
+}
+
+.mock-cafe-bento__cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-cafe-card {
+  flex: 1;
+  padding: 0.32rem 0.42rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid rgba(200, 136, 58, 0.07);
+  min-height: 0;
+}
+
+.mock-cafe-card--status {
+  background: #140F0A;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.mock-cafe-card__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #4A9E6A;
+  flex-shrink: 0;
+}
+
+.mock-cafe-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mock-cafe-card__label {
+  font-size: 0.27rem;
+  color: #B89870;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: block;
+  line-height: 1.3;
+}
+
+.mock-cafe-card__sub {
+  font-size: 0.24rem;
+  color: #5A4530;
+  letter-spacing: 0.02em;
+  display: block;
+  line-height: 1.3;
+}
+
+.mock-cafe-card--reserve {
+  background: #C8883A;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.38rem 0.42rem;
+  border-bottom: none;
+}
+
+.mock-cafe-card__reserve-text {
+  font-size: 0.27rem;
+  color: #0C0906;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.mock-cafe-card__arrow {
+  font-size: 0.32rem;
+  color: #0C0906;
+  font-weight: 700;
+}
+
+.mock-cafe-card--special {
+  background: #160E08;
+  gap: 1px;
+}
+
+.mock-cafe-card__dish {
+  font-size: 0.29rem;
+  color: #C8A878;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  display: block;
+  line-height: 1.3;
+}
+
+.mock-cafe-card__price {
+  font-size: 0.24rem;
+  color: #6A5038;
+  letter-spacing: 0.02em;
+  display: block;
+}
+
+.mock-cafe-card--rating {
+  background: #120D08;
+  gap: 2px;
+  border-bottom: none;
+}
+
+.mock-cafe-card__stars {
+  font-size: 0.27rem;
+  color: #C8883A;
+  letter-spacing: 0.04em;
+  display: block;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.mock-cafe-card__rating-row {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.mock-cafe-card__score {
+  font-size: 0.34rem;
+  color: #C8A868;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mock-cafe-card__reviews {
+  font-size: 0.23rem;
+  color: #5A4530;
+  letter-spacing: 0.02em;
+}
+
+.mock-cafe-footer {
+  background: #0E0A07;
+  border-top: 1px solid rgba(255, 220, 160, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.mock-cafe-footer span {
+  font-size: 0.245rem;
+  color: #5A4530;
+  letter-spacing: 0.04em;
+}
+
+.mock-cafe-footer__sep {
+  color: #2E1E10 !important;
+}
+
+/* ============================================================
+   BARBER DEMO — ARCHITECTURAL SPLIT (v2)
+   ============================================================ */
+
+.mock-barber-split {
+  display: flex;
+  height: 258px;
+  overflow: hidden;
+}
+
+.mock-barber-split__left {
+  flex: 0 0 42%;
+  background: #060402;
+  padding: 0.7rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(184, 72, 48, 0.22);
+}
+
+.mock-barber-split__brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.mock-barber-split__monogram {
+  font-size: 0.4rem;
+  font-weight: 700;
+  color: #B84830;
+  letter-spacing: 0.06em;
+}
+
+.mock-barber-split__est {
+  font-size: 0.22rem;
+  color: #3A2018;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mock-barber-split__title {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+  margin-bottom: 0.4rem;
+}
+
+.mock-barber-split__title span {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #EDE0CC;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.mock-barber-split__rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(184, 72, 48, 0.28);
+  margin-bottom: 0.38rem;
+  flex-shrink: 0;
+}
+
+.mock-barber-split__services {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.mock-barber-split__service {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-barber-split__num {
+  font-size: 0.23rem;
+  color: #B84830;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  width: 10px;
+}
+
+.mock-barber-split__svc {
+  font-size: 0.27rem;
+  color: #B89870;
+  letter-spacing: 0.02em;
+  flex: 1;
+}
+
+.mock-barber-split__price {
+  font-size: 0.27rem;
+  color: #5A3825;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.mock-barber-split__book {
+  background: #B84830;
+  color: #F5EAE0;
+  font-size: 0.28rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  padding: 0.26rem 0.5rem;
+  border-radius: 2px;
+  text-align: center;
+  margin-top: 0.38rem;
+  flex-shrink: 0;
+}
+
+.mock-barber-split__right {
+  flex: 0 0 58%;
+  position: relative;
+  overflow: hidden;
+}
+
+.mock-barber-split__right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.mock-barber-split__badge {
+  position: absolute;
+  bottom: 14px;
+  left: 8px;
+  background: rgba(8, 4, 2, 0.88);
+  border: 1px solid rgba(184, 72, 48, 0.4);
+  border-radius: 3px;
+  padding: 4px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mock-barber-split__badge-stars {
+  font-size: 0.26rem;
+  color: #C8883A;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.mock-barber-split__badge-score {
+  font-size: 0.34rem;
+  color: #C8A868;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ============================================================
+   BARBER DEMO — PHOTO BG + FLOATING CARD (v3)
+   ============================================================ */
+
+.mock-barber-scene {
+  position: relative;
+  height: 258px;
+  overflow: hidden;
+}
+
+.mock-barber-scene > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+}
+
+.mock-barber-card {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(252, 248, 243, 0.97);
+  border-radius: 4px;
+  padding: 0.48rem 0.55rem 0.45rem;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+.mock-barber-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.22rem;
+}
+
+.mock-barber-card__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.mock-barber-card__cc {
+  font-size: 0.42rem;
+  font-weight: 400;
+  color: #C83018;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.mock-barber-card__name {
+  font-size: 0.42rem;
+  font-weight: 400;
+  color: #1A0E08;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.mock-barber-card__est {
+  font-size: 0.22rem;
+  color: #8B6B50;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-left: 3px;
+  align-self: center;
+}
+
+.mock-barber-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.mock-barber-card__stars {
+  font-size: 0.24rem;
+  color: #D4881A;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.mock-barber-card__score {
+  font-size: 0.32rem;
+  color: #1A0E08;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.mock-barber-card__rule {
+  width: 100%;
+  height: 1px;
+  background: rgba(200, 48, 24, 0.18);
+  margin-bottom: 0.22rem;
+}
+
+.mock-barber-card__services {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 0.3rem;
+}
+
+.mock-barber-card__svc-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+
+.mock-barber-card__svc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(200, 136, 58, 0.07);
+  border: 1px solid rgba(200, 136, 58, 0.18);
+  border-radius: 2px;
+  padding: 2px 5px;
+}
+
+.mock-barber-card__svc-name {
+  font-size: 0.255rem;
+  color: #3A2218;
+  letter-spacing: 0.01em;
+}
+
+.mock-barber-card__svc-price {
+  font-size: 0.255rem;
+  color: #C83018;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.mock-barber-card__book {
+  background: #C83018;
+  color: #FCF8F3;
+  font-size: 0.29rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.26rem 0.5rem;
+  border-radius: 3px;
+  text-align: center;
+}
+
+/* Phone mockup — bright overrides to match barber v3 palette */
+.mock-phone-booking-body {
+  background: #F5EFE8;
+}
+
+.mock-phone-booking-header {
+  background: #EDE6DC;
+  border-bottom: 1px solid rgba(200, 48, 24, 0.12);
+}
+
+.mock-phone-back-arrow {
+  color: #C83018;
+}
+
+.mock-phone-booking-title {
+  color: #1A0E08;
+}
+
+.mock-phone-service-card {
+  background: #FFFFFF;
+  border-color: rgba(200, 136, 58, 0.2);
+}
+
+.mock-phone-service-name {
+  color: #3A2218;
+}
+
+.mock-phone-service-price {
+  color: #C83018;
+}
+
+.mock-phone-barber-card {
+  background: #FFFFFF;
+  border-color: rgba(200, 136, 58, 0.2);
+}
+
+.mock-phone-barber-name {
+  color: #3A2218;
+}
+
+.mock-phone-barber-stars {
+  color: #D4881A;
+}
+
+.mock-phone-datetime-card {
+  background: rgba(200, 48, 24, 0.05);
+  border-color: rgba(200, 48, 24, 0.3);
+}
+
+.mock-phone-dt-text {
+  color: #3A2218;
+}
+
+.mock-phone-confirm-btn {
+  background: #C83018;
+}
+
+/* === CAFÉ v4 — PHOTO + FLOATING TEXT === */
+
+.mock-cafe-scene {
+  position: relative;
+  height: 192px;
+  overflow: hidden;
+}
+
+.mock-cafe-scene > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.mock-cafe-scene::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 70%;
+  background: linear-gradient(to top, rgba(6, 3, 1, 0.9) 0%, rgba(6, 3, 1, 0.55) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mock-cafe-row-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 0.42rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.mock-cafe-wordmark {
+  font-style: italic;
+  font-size: 0.4rem;
+  font-weight: 700;
+  color: rgba(240, 224, 195, 0.9);
+  letter-spacing: 0.01em;
+}
+
+.mock-cafe-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(6, 3, 1, 0.55);
+  border: 1px solid rgba(74, 158, 106, 0.45);
+  border-radius: 100px;
+  padding: 0.12rem 0.38rem;
+}
+
+.mock-cafe-status-dot {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: #4A9E6A;
+  flex-shrink: 0;
+}
+
+.mock-cafe-status-text {
+  font-size: 0.24rem;
+  color: #4A9E6A;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.mock-cafe-center {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mock-cafe-row-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.mock-cafe-row-bottom__left {
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-cafe-loc {
+  font-size: 0.255rem;
+  color: rgba(200, 136, 58, 0.85);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.mock-cafe-headline {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #F5ECD8;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 7px;
+}
+
+.mock-cafe-cta-pill {
+  display: inline-block;
+  background: #C8883A;
+  color: #0C0906;
+  font-size: 0.27rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.18rem 0.45rem;
+  border-radius: 100px;
+}
+
+.mock-cafe-row-bottom__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  padding-bottom: 2px;
+}
+
+.mock-cafe-rating {
+  font-size: 0.27rem;
+  color: rgba(200, 160, 80, 0.9);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.mock-cafe-rating-sub {
+  font-size: 0.22rem;
+  color: rgba(180, 140, 80, 0.6);
+  letter-spacing: 0.03em;
+}
+
+/* === BARBER v4 — PHOTO + FLOATING TEXT === */
+
+.mock-barber-scene::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 58%;
+  background: linear-gradient(to bottom, rgba(4, 2, 1, 0.72) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mock-barber-scene::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(4, 2, 1, 0.68) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mock-barber-row-top {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+}
+
+.mock-barber-est-line {
+  font-size: 0.24rem;
+  color: rgba(200, 136, 58, 0.85);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.mock-barber-display {
+  font-size: 1.12rem;
+  color: #F0E4D4;
+  letter-spacing: 0.06em;
+  line-height: 0.88;
+}
+
+.mock-barber-row-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0.5rem;
+  right: 0.5rem;
+  padding-bottom: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.mock-barber-service-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.mock-barber-spill {
+  font-size: 0.245rem;
+  color: rgba(240, 228, 210, 0.92);
+  letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 0.11rem 0.35rem;
+  white-space: nowrap;
+}
+
+.mock-barber-row-bottom__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mock-barber-rating-text {
+  font-size: 0.255rem;
+  color: rgba(212, 136, 26, 0.9);
+  letter-spacing: 0.04em;
+}
+
+.mock-barber-book-pill {
+  background: #C83018;
+  color: #FCF8F3;
+  font-size: 0.27rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.18rem 0.45rem;
+  border-radius: 100px;
+}
+
+/* === BARBER v6 — THREE HORIZONTAL BANDS === */
+
+.mock-barber-bands {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 258px;
+  overflow: hidden;
+  background: #0E0B08;
+}
+
+.mock-barber-top-band {
+  padding: 0.52rem 0.65rem 0.48rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mock-barber-headline {
+  font-size: 1.0rem;
+  color: #F0E4D4;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.mock-barber-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.mock-barber-est {
+  font-size: 0.22rem;
+  color: rgba(200, 136, 58, 0.85);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mock-barber-loc {
+  font-size: 0.22rem;
+  color: rgba(200, 136, 58, 0.55);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mock-barber-photo-strip {
+  overflow: hidden;
+}
+
+.mock-barber-photo-strip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.mock-barber-bottom-band {
+  padding: 0.42rem 0.65rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mock-barber-services-row {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.mock-barber-svc-item {
+  font-size: 0.235rem;
+  color: rgba(240, 228, 210, 0.65);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.mock-barber-svc-dot {
+  font-size: 0.235rem;
+  color: rgba(200, 48, 24, 0.5);
+}
+
+.mock-barber-book {
+  background: #C83018;
+  color: #FCF8F3;
+  font-size: 0.245rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.38rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* === BARBER v5 — LIGHT SPLIT PANEL === */
+
+.mock-barber-split {
+  display: grid;
+  grid-template-columns: 42% 58%;
+  height: 258px;
+  overflow: hidden;
+}
+
+.mock-barber-panel {
+  background: #FCF8F3;
+  padding: 0.5rem 0.55rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1.5px solid rgba(200, 48, 24, 0.12);
+}
+
+.mock-barber-panel__top {
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-barber-eyebrow {
+  font-size: 0.21rem;
+  color: rgba(200, 48, 24, 0.7);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.mock-barber-brand {
+  font-size: 1.05rem;
+  color: #1A0E08;
+  letter-spacing: 0.04em;
+  line-height: 0.88;
+  margin-bottom: 7px;
+}
+
+.mock-barber-rule {
+  width: 20px;
+  height: 1.5px;
+  background: #C83018;
+}
+
+.mock-barber-panel__services {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.mock-barber-svc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(26, 14, 8, 0.07);
+}
+
+.mock-barber-svc-row:first-child {
+  border-top: 1px solid rgba(26, 14, 8, 0.07);
+}
+
+.mock-barber-svc-name {
+  font-size: 0.26rem;
+  color: #2A1810;
+  letter-spacing: 0.01em;
+}
+
+.mock-barber-svc-price {
+  font-size: 0.245rem;
+  color: #C83018;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.mock-barber-panel__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+}
+
+.mock-barber-cta {
+  background: #C83018;
+  color: #FCF8F3;
+  font-size: 0.255rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.17rem 0.42rem;
+  border-radius: 2px;
+}
+
+.mock-barber-panel-rating {
+  font-size: 0.225rem;
+  color: #D4881A;
+  letter-spacing: 0.03em;
+}
+
+.mock-barber-photo {
+  overflow: hidden;
+}
+
+.mock-barber-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
 }
 
 /* --- Problem Statement Band --- */
